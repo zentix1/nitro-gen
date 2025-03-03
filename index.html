@@ -3,12 +3,95 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fake Nitro Generator</title>
-    <script defer src="script.js"></script>
+    <title>Fake Nitro Code Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #23272A;
+            color: white;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            color: #7289DA;
+        }
+        button {
+            background-color: #5865F2;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #4752C4;
+        }
+        #codes {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #2C2F33;
+            border-radius: 5px;
+            display: inline-block;
+            text-align: left;
+        }
+        .code {
+            font-size: 14px;
+            margin: 5px 0;
+            padding: 5px;
+            background-color: #40444B;
+            border-radius: 3px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .copy-btn {
+            background-color: #7289DA;
+            border: none;
+            color: white;
+            padding: 5px;
+            font-size: 12px;
+            cursor: pointer;
+            border-radius: 3px;
+        }
+    </style>
 </head>
 <body>
-    <h2>Fake Discord Nitro Code Generator</h2>
+
+    <h1>🚀 Fake Discord Nitro Code Generator</h1>
+    <p>Click the button to generate fake Nitro gift codes.</p>
     <button onclick="generateCodes()">Generate Codes</button>
-    <ul id="codes"></ul>
+    <div id="codes"></div>
+
+    <script>
+        function generateNitroCode() {
+            let characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+            let code = "";
+            for (let i = 0; i < 16; i++) {
+                code += characters.charAt(Math.floor(Math.random() * characters.length));
+            }
+            return "https://discord.gift/" + code;
+        }
+
+        function generateCodes() {
+            let codesDiv = document.getElementById("codes");
+            codesDiv.innerHTML = "";  
+            for (let i = 0; i < 5; i++) {
+                let code = generateNitroCode();
+                let div = document.createElement("div");
+                div.className = "code";
+                div.innerHTML = `<span>${code}</span> <button class="copy-btn" onclick="copyCode('${code}')">📋 Copy</button>`;
+                codesDiv.appendChild(div);
+            }
+        }
+
+        function copyCode(code) {
+            navigator.clipboard.writeText(code);
+            alert("Copied: " + code);
+        }
+    </script>
+
 </body>
 </html>
